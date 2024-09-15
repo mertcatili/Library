@@ -115,8 +115,9 @@ CREATE TABLE public.borrowings (
 	CONSTRAINT "PK_5da0d5a9a91e8c386e1f6812db2" PRIMARY KEY (id)
 );
 
-
 ALTER TABLE public.borrowings ADD CONSTRAINT "FK_151ca9466056600f08958b3432d" FOREIGN KEY ("userId") REFERENCES public.users(id);
 ALTER TABLE public.borrowings ADD CONSTRAINT "FK_5da2b7ee3b60c381d4bbdb50668" FOREIGN KEY ("bookId") REFERENCES public.books(id);
 ```
+## Database Schema
 
+![Database Schema](./docs/images/library-schema.png)

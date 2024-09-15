@@ -38,12 +38,14 @@ This approach ensures that the book inventory is accurately maintained even unde
 Follow these steps to get the project up and running on your local machine:
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/mertcatili/Library.git
-   ```
+
+```bash
+$ git clone https://github.com/mertcatili/Library.git
+```
 
 2. Create a `.env` file in the root directory and add the following environment variables:
-   ```
+
+   ```bash
    JWT_SECRET="library_management"
    ENABLE_AUTH="0"
    PORT="3000"
@@ -58,9 +60,10 @@ Follow these steps to get the project up and running on your local machine:
    ```
 
 3. Build and start the Docker containers:
-   ```
-   docker-compose up --build
-   ```
+
+```bash
+$ docker-compose up --build
+```
 
    This command will build the Docker image for the application and start the containers for the app, PostgreSQL database, and Redis.
 
@@ -80,6 +83,7 @@ Follow these steps to get the project up and running on your local machine:
 ## Running Tests
 
 To run the tests, use the following command:
-```
-npm test
+
+```bash
+$ npm test
 ```

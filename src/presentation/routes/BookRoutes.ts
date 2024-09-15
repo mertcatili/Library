@@ -24,9 +24,9 @@ export function createBookRoutes(dataSource: DataSource): Router {
     const bookController = new BookController(getAllBooksUseCase, getBookByIdUseCase, createBookUseCase);
     const router = Router();
 
-    router.get("", (req, res) => bookController.getAll(req, res));
-    router.get("/:id", (req, res) => bookController.getById(req, res));
-    router.post("", validateRequest(CreateBookDto), (req, res) => bookController.create(req, res));
+    router.get("", (req, res, next) => bookController.getAll(req, res, next));
+    router.get("/:id", (req, res, next) => bookController.getById(req, res, next));
+    router.post("", validateRequest(CreateBookDto), (req, res, next) => bookController.create(req, res, next));
 
     return router;
 }

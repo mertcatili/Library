@@ -4,7 +4,9 @@ import { createMainRouter } from "./presentation/routes";
 import pinoHttp from "pino-http";
 import logger from "./infrastructure/logger/logger";
 import { errorHandler } from "./presentation/middlewares/errorHandler";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 

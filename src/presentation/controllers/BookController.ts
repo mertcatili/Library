@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import { GetAllBooksUseCase } from "../../application/use-cases/GetAllBooksUseCase";
 import { GetBookByIdUseCase } from "../../application/use-cases/GetBookByIdUseCase";
@@ -13,12 +13,12 @@ export class BookController {
         private readonly createBookUseCase: CreateBookUseCase
     ) {}
 
-    async getAll(req: Request, res: Response): Promise<Result<Response>> {
+    async getAll(req: Request, res: Response, next: NextFunction): Promise<Result<Response> | void> {
         const books = await this.getAllBooksUseCase.execute();
         return new SuccessResult(res.status(200).json(books));
     }
 
-    async getById(req: Request, res: Response): Promise<Result<Response>> {
+    async getById(req: Request, res: Response, next: NextFunction): Promise<Result<Response> | void> {
         const id = parseInt(req.params.id);
         if (isNaN(id)) {
             return new ErrorResult("Invalid ID format");
@@ -28,17 +28,17 @@ export class BookController {
             const book = await this.getBookByIdUseCase.execute(id);
             return new SuccessResult(res.status(200).json(book));
         } catch (error) {
-            return new ErrorResult("Book not found");
+            next(error);
         }
     }
 
-    async create(req: Request, res: Response): Promise<Result<Response>> {
+    async create(req: Request, res: Response, next: NextFunction): Promise<Result<Response> | void> {
         const dto = req.body as CreateBookDto;
         try {
             const book = await this.createBookUseCase.execute(dto);
             return new SuccessResult(res.status(201).json(book));
         } catch (error) {
-            return new ErrorResult("Failed to create book");
+            next(error);
         }
     }    
 }

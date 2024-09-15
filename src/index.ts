@@ -1,12 +1,29 @@
-import express, { Request, Response } from 'express';
+import express from "express";
+import { AppDataSource } from "./infrastructure/data-source";
+import { createMainRouter } from "./presentation/routes";
+import pinoHttp from "pino-http";
+import logger from "./infrastructure/logger/logger";
+import { errorHandler } from "./presentation/middlewares/errorHandler";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, World!');
-});
+app.use(express.json());
+app.use(pinoHttp({ logger }));
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+AppDataSource.initialize()
+    .then(() => {
+        const mainRouter = createMainRouter(AppDataSource);
+        app.use("/", mainRouter);
+
+        app.use(errorHandler);
+
+        app.listen(port, () => {
+            console.log(`Server is running on http://localhost:${port}`);
+        });
+    })
+    .catch((error) => {
+        console.error("Error during Data Source initialization", error);
+    });
+
+

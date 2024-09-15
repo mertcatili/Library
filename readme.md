@@ -87,3 +87,36 @@ To run the tests, use the following command:
 ```bash
 $ npm test
 ```
+
+## Database DDL's
+
+```sql
+CREATE TABLE public.books (
+	id serial4 NOT NULL,
+	"name" varchar(100) NOT NULL,
+	"isActive" bool NOT NULL DEFAULT true,
+	CONSTRAINT "PK_f3f2f25a099d24e12545b70b022" PRIMARY KEY (id)
+);
+
+CREATE TABLE public.users (
+	id serial4 NOT NULL,
+	"firstName" varchar(100) NOT NULL,
+	"lastName" varchar(100) NOT NULL,
+	CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY (id)
+);
+
+CREATE TABLE public.borrowings (
+	id serial4 NOT NULL,
+	"borrowDate" timestamp NOT NULL,
+	"returnDate" timestamp NULL,
+	"userId" int4 NULL,
+	"bookId" int4 NULL,
+	score numeric(3, 2) NULL,
+	CONSTRAINT "PK_5da0d5a9a91e8c386e1f6812db2" PRIMARY KEY (id)
+);
+
+
+ALTER TABLE public.borrowings ADD CONSTRAINT "FK_151ca9466056600f08958b3432d" FOREIGN KEY ("userId") REFERENCES public.users(id);
+ALTER TABLE public.borrowings ADD CONSTRAINT "FK_5da2b7ee3b60c381d4bbdb50668" FOREIGN KEY ("bookId") REFERENCES public.books(id);
+```
+

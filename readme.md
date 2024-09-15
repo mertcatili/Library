@@ -120,4 +120,4 @@ ALTER TABLE public.borrowings ADD CONSTRAINT "FK_5da2b7ee3b60c381d4bbdb50668" FO
 ```
 ## Database Schema
 
-![Database Schema](./docs/images/library-schema.png)
+![Database Schema](./src/docs/images/library-schema.png)
